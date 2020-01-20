@@ -37,6 +37,23 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
         res.send("try GET /filteredimage?image_url={{}}")
     });
 
+    app.get("/filteredimage/", (req: Request, res: Response) => {
+        let {image_url} = req.query;
+
+        if (!image_url) {
+            return res.status(400)
+                .send(`Please add the mandatory parameter for the image you want to be filtered.`);
+        }
+
+        filterImageFromURL(image_url).then(imageLink => {
+            return res.status(200)
+                .send('Here is the link for your saved file:' + imageLink + '. Have fun!');
+        }).catch(error => {
+            return res.status(422)
+                .send('Ooops, something went terribly wrong: ' + error)
+        });
+    });
+
     // Start the Server
     app.listen(port, () => {
         console.log(`server running http://localhost:${port}`);
