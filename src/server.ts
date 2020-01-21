@@ -37,6 +37,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
         res.send("try GET /filteredimage?image_url={{}}")
     });
 
+    // this endpoint accepts valid requests, it doesn't use a syntax validation, so invalid requests crash :)
     app.get("/filteredimage/", (req: Request, res: Response) => {
         let {image_url} = req.query;
 
@@ -52,6 +53,8 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
             return res.status(422)
                 .send('Ooops, something went terribly wrong: ' + error)
         });
+
+
     });
 
     // Start the Server
