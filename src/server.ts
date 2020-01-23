@@ -30,7 +30,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
         filterImageFromURL(image_url).then(imageLink => {
             return res.status(200)
-                .send('Here is the link for your saved file:' + imageLink + '. Have fun!');
+                .sendFile(imageLink);
         }).catch(error => {
             return res.status(422)
                 .send('Ooops, something went terribly wrong: ' + error)
